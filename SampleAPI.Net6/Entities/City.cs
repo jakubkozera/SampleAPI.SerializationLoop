@@ -1,4 +1,6 @@
-﻿namespace SampleAPI.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace SampleAPI.Entities;
 
 public class City
 {

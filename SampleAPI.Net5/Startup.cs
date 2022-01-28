@@ -5,7 +5,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using SampleAPI.Entities;
+using System.Text.Json.Serialization;
 
 namespace SampleAPI.Net5
 {
@@ -23,7 +25,9 @@ namespace SampleAPI.Net5
         {
             services.AddDbContext<CountriesDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("CountriesDb")));
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(
+                option => option.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SampleAPI.Net5", Version = "v1" });
